@@ -493,7 +493,17 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     public ResponseList<Status> getRetweets(long statusId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL()
-                + "statuses/retweets/" + statusId + ".json?count=100&include_entities="
+                + "statuses/retweets/" + statusId + ".json?count=20&include_entities="
+                + conf.isIncludeEntitiesEnabled()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ResponseList<Status> getRetweets(long statusId, int max) throws TwitterException {
+        ensureAuthorizationEnabled();
+        return factory.createStatusList(get(conf.getRestBaseURL()
+                + "statuses/retweets/" + statusId + ".json?count="+Math.min(100,max)+"&include_entities="
                 + conf.isIncludeEntitiesEnabled()));
     }
 

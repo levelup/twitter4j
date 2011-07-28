@@ -102,6 +102,19 @@ public interface StatusMethods {
     ResponseList<Status> getRetweets(long statusId) throws TwitterException;
 
     /**
+     * Returns up to max or 100 of the first retweets of a given tweet.
+     * <br>This method calls http://api.twitter.com/1/statuses/retweets
+     *
+     * @param statusId The numerical ID of the tweet you want the retweets of.
+     * @param max The maximum number of items to return (up to 100)
+     * @return the retweets of a given tweet
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see <a href="https://dev.twitter.com/docs/api/1/get/statuses/retweets/:id">Tweets Resources › statuses/retweets/:id</a>
+     * @since Twitter4J 2.0.10
+     */
+    ResponseList<Status> getRetweets(long statusId, int max) throws TwitterException;
+
+    /**
      * Show user objects of up to 100 members who retweeted the status.
      * <br>This method calls http://api.twitter.com/1/statuses/:id/retweeted_by
      *
