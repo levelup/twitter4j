@@ -18,9 +18,13 @@ package twitter4j.internal.json;
 
 import twitter4j.Annotations;
 import twitter4j.GeoLocation;
+import twitter4j.HashtagEntity;
+import twitter4j.MediaEntity;
 import twitter4j.Place;
 import twitter4j.Tweet;
 import twitter4j.TwitterException;
+import twitter4j.URLEntity;
+import twitter4j.UserMentionEntity;
 import twitter4j.conf.Configuration;
 import twitter4j.internal.org.json.JSONArray;
 import twitter4j.internal.org.json.JSONException;
@@ -52,6 +56,10 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
     private Date createdAt;
     private String location;
     private Place place;
+    private UserMentionEntity[] userMentionEntities;
+    private URLEntity[] urlEntities;
+    private HashtagEntity[] hashtagEntities;
+    private MediaEntity[] mediaEntities;
 
     private GeoLocation geoLocation = null;
     private Annotations annotations = null;
@@ -84,6 +92,40 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
             }
         } else {
             place = null;
+        }
+        if (!tweet.isNull("entities")) {
+            try {
+                JSONObject entities = tweet.getJSONObject("entities");
+
+                JSONArray userMentionsArray = entities.getJSONArray("user_mentions");
+                int len = userMentionsArray.length();
+                userMentionEntities = new UserMentionEntity[len];
+                for (int i = 0; i < len; i++) {
+                    userMentionEntities[i] = new UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i));
+                }
+
+                JSONArray urlsArray = entities.getJSONArray("urls");
+                len = urlsArray.length();
+                urlEntities = new URLEntity[len];
+                for (int i = 0; i < len; i++) {
+                    urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+                }
+
+                JSONArray hashtagsArray = entities.getJSONArray("hashtags");
+                len = hashtagsArray.length();
+                hashtagEntities = new HashtagEntity[len];
+                for (int i = 0; i < len; i++) {
+                    hashtagEntities[i] = new HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i));
+                }
+
+                JSONArray mediaArray = entities.getJSONArray("media");
+                len = mediaArray.length();
+                mediaEntities = new MediaEntity[len];
+                for (int i = 0; i < len; i++) {
+                    mediaEntities[i] = new MediaEntityJSONImpl(mediaArray.getJSONObject(i));
+                }
+            } catch (JSONException ignore) {
+            }
         }
     }
 
@@ -202,6 +244,13 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         return annotations;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public URLEntity[] getURLEntities() {
+        return urlEntities;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

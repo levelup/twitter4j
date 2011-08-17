@@ -49,4 +49,12 @@ public interface DirectMessage extends TwitterResponse, java.io.Serializable {
 
     User getRecipient();
 
+    /**
+     * Returns an array if URLEntity mentioned in the tweet, or null if no URLs were mentioned.
+     *
+     * @return An array of URLEntity mentioned in the tweet.
+     * @since Twitter4J 2.2.5
+     */
+    URLEntity[] getURLEntities();
+
 }

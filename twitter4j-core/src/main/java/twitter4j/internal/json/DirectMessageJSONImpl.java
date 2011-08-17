@@ -17,9 +17,13 @@
 package twitter4j.internal.json;
 
 import twitter4j.DirectMessage;
+import twitter4j.HashtagEntity;
+import twitter4j.MediaEntity;
 import twitter4j.ResponseList;
 import twitter4j.TwitterException;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.conf.Configuration;
 import twitter4j.internal.http.HttpResponse;
 import twitter4j.internal.org.json.JSONArray;
@@ -46,6 +50,10 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
     private Date createdAt;
     private String senderScreenName;
     private String recipientScreenName;
+    private UserMentionEntity[] userMentionEntities;
+    private URLEntity[] urlEntities;
+    private HashtagEntity[] hashtagEntities;
+    private MediaEntity[] mediaEntities;
 
 
     /*package*/DirectMessageJSONImpl(HttpResponse res, Configuration conf) throws TwitterException {
@@ -75,6 +83,40 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
             recipient = new UserJSONImpl(json.getJSONObject("recipient"));
         } catch (JSONException jsone) {
             throw new TwitterException(jsone);
+        }
+        if (!json.isNull("entities")) {
+            try {
+                JSONObject entities = json.getJSONObject("entities");
+
+                JSONArray userMentionsArray = entities.getJSONArray("user_mentions");
+                int len = userMentionsArray.length();
+                userMentionEntities = new UserMentionEntity[len];
+                for (int i = 0; i < len; i++) {
+                    userMentionEntities[i] = new UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i));
+                }
+
+                JSONArray urlsArray = entities.getJSONArray("urls");
+                len = urlsArray.length();
+                urlEntities = new URLEntity[len];
+                for (int i = 0; i < len; i++) {
+                    urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+                }
+
+                JSONArray hashtagsArray = entities.getJSONArray("hashtags");
+                len = hashtagsArray.length();
+                hashtagEntities = new HashtagEntity[len];
+                for (int i = 0; i < len; i++) {
+                    hashtagEntities[i] = new HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i));
+                }
+
+                JSONArray mediaArray = entities.getJSONArray("media");
+                len = mediaArray.length();
+                mediaEntities = new MediaEntity[len];
+                for (int i = 0; i < len; i++) {
+                    mediaEntities[i] = new MediaEntityJSONImpl(mediaArray.getJSONObject(i));
+                }
+            } catch (JSONException ignore) {
+            }
         }
     }
 
@@ -145,6 +187,13 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         return recipient;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public URLEntity[] getURLEntities() {
+        return urlEntities;
+    }
+    
     /*package*/
     static ResponseList<DirectMessage> createDirectMessageList(HttpResponse res, Configuration conf) throws TwitterException {
         try {

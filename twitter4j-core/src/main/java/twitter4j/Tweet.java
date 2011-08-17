@@ -131,4 +131,11 @@ public interface Tweet extends Comparable<Tweet>, java.io.Serializable {
      */
     Annotations getAnnotations();
 
+    /**
+     * Returns an array if URLEntity mentioned in the tweet, or null if no URLs were mentioned.
+     *
+     * @return An array of URLEntity mentioned in the tweet.
+     * @since Twitter4J 2.2.5
+     */
+    URLEntity[] getURLEntities();
 }
