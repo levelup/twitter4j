@@ -16,6 +16,7 @@ twitter4j-stream - Streaming API support : depeinding on twitter4j-core and twit
 Contributors
 ------------
 Adam Samet <asamet at twitter.com> @damnitsamet
+Adrian Petrescu <apetresc at gmail.com> @apetresc
 Alan Gutierrez <alan at blogometer.com>
 Alessandro Bahgat <ale.bahgat at gmail.com> @abahgat
 Anton Evane <antonevane at gmail.com> @anton_evane
@@ -41,6 +42,7 @@ Perry Sakkaris <psakkaris at gmail.com>
 Roberto Estrada <robestradac at gmail.com>
 Roy Reshef <royreshef at gmail.com> @tsipo
 Rui Silva
+Sam Pullara <sam at sampullara.com> @sampullara
 Steve Lhomme <slhomme at matroska.org> @robux4
 Rémy Rakic <remy.rakic at gmail.com> @lqd
 Takao Nakaguchi <takao.nakaguchi at gmail.com> @takawitter
@@ -48,4 +50,4 @@ Tomohisa Igarashi <tm.igarashi at gmail.com>
 Will Glozer <will at glozer.net> @ar3te
 William Morgan <william at twitter.com> @wm
 withgod <noname at withgod.jp> @withgod
-Yusuke Yamamoto <yusuke at mac.com> @yusukey
+Yusuke Yamamoto <yusuke at mac.com> @yusuke
