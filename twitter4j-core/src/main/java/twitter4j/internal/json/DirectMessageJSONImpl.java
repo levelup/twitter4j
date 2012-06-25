@@ -194,6 +194,13 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         return urlEntities;
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    public MediaEntity[] getMediaEntities() {
+        return mediaEntities;
+    }
+    
     /*package*/
     static ResponseList<DirectMessage> createDirectMessageList(HttpResponse res, Configuration conf) throws TwitterException {
         try {

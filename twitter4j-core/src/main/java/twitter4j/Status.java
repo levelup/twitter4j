@@ -161,4 +161,12 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @deprecated Annotations is not available for now. <a href="http://groups.google.com/group/twitter-development-talk/browse_thread/thread/4d5ff2ec4d2ce4a7">Annotations - Twitter Development Talk | Google Groups</a>
      */
     Annotations getAnnotations();
+
+    /**
+     * Returns an array of MediaEntities if medias are available in the tweet, or null if no media is included in the tweet.
+     *
+     * @return an array of MediaEntities.
+     * @since Twitter4J 2.2.3
+     */
+    MediaEntity[] getMediaEntities();
 }

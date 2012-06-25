@@ -57,4 +57,11 @@ public interface DirectMessage extends TwitterResponse, java.io.Serializable {
      */
     URLEntity[] getURLEntities();
 
+    /**
+     * Returns an array of MediaEntities if medias are available in the tweet, or null if no media is included in the tweet.
+     *
+     * @return an array of MediaEntities.
+     * @since Twitter4J 2.2.3
+     */
+    MediaEntity[] getMediaEntities();
 }

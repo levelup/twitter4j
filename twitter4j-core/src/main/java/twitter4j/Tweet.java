@@ -162,4 +162,12 @@ public interface Tweet extends Comparable<Tweet>, EntitySupport, Twt,
      * @since Twitter4J 2.2.5
      */
     URLEntity[] getURLEntities();
+
+    /**
+     * Returns an array of MediaEntities if medias are available in the tweet, or null if no media is included in the tweet.
+     *
+     * @return an array of MediaEntities.
+     * @since Twitter4J 2.2.3
+     */
+    MediaEntity[] getMediaEntities();
 }

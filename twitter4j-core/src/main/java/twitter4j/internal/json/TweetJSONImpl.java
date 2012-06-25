@@ -251,6 +251,13 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         return urlEntities;
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    public MediaEntity[] getMediaEntities() {
+        return mediaEntities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -279,6 +286,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         result = 31 * result + (place != null ? place.hashCode() : 0);
         result = 31 * result + (geoLocation != null ? geoLocation.hashCode() : 0);
         result = 31 * result + (annotations != null ? annotations.hashCode() : 0);
+        result = 31 * result + (mediaEntities != null ? Arrays.hashCode(mediaEntities) : 0);
         return result;
     }
 
@@ -299,6 +307,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
                 ", place=" + place +
                 ", geoLocation=" + geoLocation +
                 ", annotations=" + annotations +
+                ", mediaEntities=" + (mediaEntities == null ? null : Arrays.asList(mediaEntities)) +
                 '}';
     }
 }
