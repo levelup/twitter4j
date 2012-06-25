@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public final class HttpParameter implements Comparable, java.io.Serializable {
+public final class HttpParameter implements Comparable<HttpParameter>, java.io.Serializable {
     private String name = null;
     private String value = null;
     private File file = null;
@@ -219,7 +219,7 @@ public final class HttpParameter implements Comparable, java.io.Serializable {
                 '}';
     }
 
-    public int compareTo(Object o) {
+    public int compareTo(HttpParameter o) {
         int compared;
         HttpParameter that = (HttpParameter) o;
         compared = name.compareTo(that.name);
