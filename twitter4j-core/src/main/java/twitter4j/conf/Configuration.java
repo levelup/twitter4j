@@ -114,6 +114,8 @@ public interface Configuration extends HttpClientConfiguration
 
     boolean isUserStreamRepliesAllEnabled();
 
+    boolean isTrimUserEnabled();
+
     String getMediaProvider();
 
     String getMediaProviderAPIKey();

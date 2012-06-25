@@ -79,6 +79,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
     public static final String ASYNC_NUM_THREADS = "async.numThreads";
     public static final String ASYNC_DISPATCHER_IMPL = "async.dispatcherImpl";
     public static final String INCLUDE_RTS = "includeRTs";
+    public static final String TRIM_USER = "trimUser";
     public static final String INCLUDE_ENTITIES = "includeEntities";
     public static final String JSON_STORE_ENABLED = "jsonStoreEnabled";
     public static final String MBEAN_ENABLED = "mbeanEnabled";
@@ -346,6 +347,9 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
         }
         if (notNull(props, prefix, INCLUDE_RTS)) {
             setIncludeRTsEnbled(getBoolean(props, prefix, INCLUDE_RTS));
+        }
+        if (notNull(props, prefix, TRIM_USER)) {
+            setTrimUserEnabled(getBoolean(props, prefix, TRIM_USER));
         }
         if (notNull(props, prefix, INCLUDE_ENTITIES)) {
             setIncludeEntitiesEnbled(getBoolean(props, prefix, INCLUDE_ENTITIES));

@@ -76,6 +76,8 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private boolean mbeanEnabled;
 
     private boolean userStreamRepliesAllEnabled;
+    
+    private boolean userIsTrimed;
 
     private String mediaProvider;
 
@@ -181,6 +183,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
 
         setDispatcherImpl("twitter4j.internal.async.DispatcherImpl");
 
+        setTrimUserEnabled(true);
         setIncludeRTsEnbled(true);
         setUserStreamRepliesAllEnabled(false);
         String isDalvik;
@@ -571,6 +574,14 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
 
     protected final void setIncludeRTsEnbled(boolean enabled) {
         this.includeRTsEnabled = enabled;
+    }
+
+    public boolean isTrimUserEnabled() {
+        return this.userIsTrimed;
+    }
+
+    protected final void setTrimUserEnabled(boolean enabled) {
+        this.userIsTrimed = enabled;
     }
 
     public boolean isIncludeEntitiesEnabled() {

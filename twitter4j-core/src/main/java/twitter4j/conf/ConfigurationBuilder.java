@@ -241,6 +241,12 @@ public final class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setTrimUserEnabled(boolean enabled) {
+        checkNotBuilt();
+        configurationBean.setTrimUserEnabled(enabled);
+        return this;
+    }
+
     public ConfigurationBuilder setIncludeEntitiesEnabled(boolean enabled) {
         checkNotBuilt();
         configurationBean.setIncludeEntitiesEnbled(enabled);
