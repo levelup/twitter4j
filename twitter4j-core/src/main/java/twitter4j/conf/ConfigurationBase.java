@@ -157,7 +157,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         setClientURL("http://twitter4j.org/en/twitter4j-" + Version.getVersion() + ".xml");
         setUserAgent("twitter4j http://twitter4j.org/ /" + Version.getVersion());
 
-        setIncludeRTsEnbled(true);
+        setIncludeRTsEnabled(true);
 
         setIncludeEntitiesEnbled(true);
 
@@ -184,7 +184,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         setDispatcherImpl("twitter4j.internal.async.DispatcherImpl");
 
         setTrimUserEnabled(true);
-        setIncludeRTsEnbled(true);
+        setIncludeRTsEnabled(true);
         setUserStreamRepliesAllEnabled(false);
         String isDalvik;
         try {
@@ -572,7 +572,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         return this.includeRTsEnabled;
     }
 
-    protected final void setIncludeRTsEnbled(boolean enabled) {
+    protected final void setIncludeRTsEnabled(boolean enabled) {
         this.includeRTsEnabled = enabled;
     }
 

@@ -237,7 +237,7 @@ public final class ConfigurationBuilder {
 
     public ConfigurationBuilder setIncludeRTsEnabled(boolean enabled) {
         checkNotBuilt();
-        configurationBean.setIncludeRTsEnbled(enabled);
+        configurationBean.setIncludeRTsEnabled(enabled);
         return this;
     }
 

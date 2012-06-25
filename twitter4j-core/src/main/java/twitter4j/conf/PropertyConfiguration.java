@@ -346,7 +346,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
             setUploadBaseURL(getString(props, prefix, UPLOAD_BASE_URL));
         }
         if (notNull(props, prefix, INCLUDE_RTS)) {
-            setIncludeRTsEnbled(getBoolean(props, prefix, INCLUDE_RTS));
+            setIncludeRTsEnabled(getBoolean(props, prefix, INCLUDE_RTS));
         }
         if (notNull(props, prefix, TRIM_USER)) {
             setTrimUserEnabled(getBoolean(props, prefix, TRIM_USER));
