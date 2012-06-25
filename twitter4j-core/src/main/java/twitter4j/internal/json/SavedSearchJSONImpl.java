@@ -89,7 +89,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
     }
 
     private void init(JSONObject savedSearch) throws TwitterException {
-        createdAt = getDate("created_at", savedSearch, "EEE MMM dd HH:mm:ss z yyyy");
+        createdAt = getDate("created_at", savedSearch, "EEE MMM dd HH:mm:ss +0000 yyyy");
         query = getUnescapedString("query", savedSearch);
         position = getInt("position", savedSearch);
         name = getUnescapedString("name", savedSearch);

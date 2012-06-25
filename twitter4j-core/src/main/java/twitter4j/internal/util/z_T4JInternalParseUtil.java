@@ -95,7 +95,7 @@ public final class z_T4JInternalParseUtil {
 
 
     public static Date getDate(String name, JSONObject json) throws TwitterException {
-        return getDate(name, json, "EEE MMM d HH:mm:ss z yyyy");
+        return getDate(name, json, "EEE MMM d HH:mm:ss +0000 yyyy");
     }
 
     public static Date getDate(String name, JSONObject json, String format) throws TwitterException {

@@ -67,7 +67,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getInt;
     void init(JSONObject json) throws TwitterException {
         this.hourlyLimit = getInt("hourly_limit", json);
         this.remainingHits = getInt("remaining_hits", json);
-        this.resetTime = getDate("reset_time", json, "EEE MMM d HH:mm:ss Z yyyy");
+		this.resetTime = getDate("reset_time", json, "EEE MMM d HH:mm:ss 0000 yyyy");
         this.resetTimeInSeconds = getInt("reset_time_in_seconds", json);
 		this.secondsUntilReset = (int) ((resetTime.getTime() - z_T4JTime.getTwitterTimeMillis()) / 1000);
     }

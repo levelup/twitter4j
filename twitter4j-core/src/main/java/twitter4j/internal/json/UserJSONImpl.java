@@ -129,7 +129,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getRawString;
             profileUseBackgroundImage = getBoolean("profile_use_background_image", json);
             showAllInlineMedia = getBoolean("show_all_inline_media", json);
             friendsCount = getInt("friends_count", json);
-            createdAt = getDate("created_at", json, "EEE MMM dd HH:mm:ss z yyyy");
+            createdAt = getDate("created_at", json, "EEE MMM dd HH:mm:ss +0000 yyyy");
             favouritesCount = getInt("favourites_count", json);
             utcOffset = getInt("utc_offset", json);
             timeZone = getRawString("time_zone", json);

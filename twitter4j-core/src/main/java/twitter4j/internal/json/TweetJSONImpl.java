@@ -74,7 +74,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getUnescapedString;
         isoLanguageCode = getRawString("iso_language_code", tweet);
         source = getUnescapedString("source", tweet);
         profileImageUrl = getUnescapedString("profile_image_url", tweet);
-        createdAt = getDate("created_at", tweet, "EEE, dd MMM yyyy HH:mm:ss z");
+        createdAt = getDate("created_at", tweet, "EEE, dd MMM yyyy HH:mm:ss +0000");
         location = getRawString("location", tweet);
         geoLocation = z_T4JInternalJSONImplFactory.createGeoLocation(tweet);
         if (!tweet.isNull("annotations")) {
