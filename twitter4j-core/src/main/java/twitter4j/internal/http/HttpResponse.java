@@ -96,7 +96,7 @@ public abstract class HttpResponse {
                 if (null == stream) {
                     return null;
                 }
-                br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+                br = new BufferedReader(new InputStreamReader(stream, "UTF-8"), 8192);
                 StringBuffer buf = new StringBuffer();
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -217,7 +217,7 @@ public abstract class HttpResponse {
 
     public Reader asReader() {
         try {
-            return new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            return new BufferedReader(new InputStreamReader(is, "UTF-8"), 8192);
         } catch (java.io.UnsupportedEncodingException uee) {
             return new InputStreamReader(is);
         }

@@ -127,13 +127,15 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
                                     write(out, boundary + "\r\n");
                                     write(out, "Content-Disposition: form-data; name=\"" + param.getName() + "\"; filename=\"" + param.getFile().getName() + "\"\r\n");
                                     write(out, "Content-Type: " + param.getContentType() + "\r\n\r\n");
-                                    BufferedInputStream in = new BufferedInputStream(
-                                            param.hasFileBody() ? param.getFileBody() : new FileInputStream(param.getFile())
-                                    );
-                                    int buff;
-                                    while ((buff = in.read()) != -1) {
-                                        out.write(buff);
-                                    }
+									byte buffer[] = new byte[1024];
+									BufferedInputStream in = new BufferedInputStream(
+											param.hasFileBody() ? param.getFileBody() : new FileInputStream(param.getFile())
+											, 8*1024);
+									int amount;
+									while ((amount = in.read(buffer)) != -1) {
+										out.write(buffer, 0, amount);
+										out.flush();
+									}
                                     write(out, "\r\n");
                                     in.close();
                                 } else {

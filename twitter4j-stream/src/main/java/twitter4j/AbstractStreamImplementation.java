@@ -52,7 +52,7 @@ abstract class AbstractStreamImplementation {
 
     AbstractStreamImplementation(Dispatcher dispatcher, InputStream stream, Configuration conf) throws IOException {
         this.is = stream;
-        this.br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        this.br = new BufferedReader(new InputStreamReader(stream, "UTF-8"), 8192);
         this.dispatcher = dispatcher;
         this.CONF = conf;
         this.factory = new z_T4JInternalJSONImplFactory(conf);
