@@ -89,15 +89,23 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.getInt;
         }
         String remaining = res.getResponseHeader("X-RateLimit-Remaining");
         if (remaining != null) {
-            remainingHits = Integer.parseInt(remaining);
+			try {
+				remainingHits = Integer.parseInt(remaining);
+			} catch (NumberFormatException e) {
+				return null;
+			}
         } else {
             return null;
         }
         String reset = res.getResponseHeader("X-RateLimit-Reset");
         if (reset != null) {
-            long longReset = Long.parseLong(reset);
-            resetTimeInSeconds = (int) (longReset / 1000);
-            resetTime = new Date(longReset * 1000);
+			try {
+				long longReset = Long.parseLong(reset);
+				resetTimeInSeconds = (int) (longReset / 1000);
+				resetTime = new Date(longReset * 1000);
+			} catch (NumberFormatException e) {
+				return null;
+			}
         } else {
             return null;
         }
