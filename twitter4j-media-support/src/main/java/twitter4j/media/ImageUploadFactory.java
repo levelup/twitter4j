@@ -67,6 +67,8 @@ public class ImageUploadFactory {
             defaultMediaProvider = TWIPL;
         } else if ("posterous".equals(mediaProvider)) {
             defaultMediaProvider = POSTEROUS;
+		} else if ("mypictme".equals(mediaProvider)) {
+			defaultMediaProvider = MYPICTME;
         } else {
             throw new IllegalArgumentException("unsupported media provider:" + mediaProvider);
         }
@@ -132,6 +134,8 @@ public class ImageUploadFactory {
             return new TwitpicUpload(conf, apiKey, oauth);
         } else if (mediaProvider == YFROG) {
             return new YFrogUpload(conf, oauth);
+		} else if (mediaProvider == MYPICTME) {
+			return new MyPictMe(conf, oauth);
         } else if (mediaProvider == MOBYPICTURE) {
             return new MobypictureUpload(conf, apiKey, oauth);
         } else if (mediaProvider == TWIPL) {
