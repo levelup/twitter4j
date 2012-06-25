@@ -304,6 +304,13 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
             con.setReadTimeout(CONF.getHttpReadTimeout());
         }
         con.setInstanceFollowRedirects(false);
+		if (con instanceof HttpsURLConnection) {
+			((HttpsURLConnection) con).setUseCaches(false);
+			try {
+				((HttpsURLConnection) con).setHostnameVerifier(new TwitterHostnameVerifier(url));
+			} catch (URISyntaxException e) {
+			}
+		}
         return con;
     }
 }
