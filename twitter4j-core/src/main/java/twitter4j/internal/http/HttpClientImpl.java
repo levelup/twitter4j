@@ -16,10 +16,7 @@
 
 package twitter4j.internal.http;
 
-import twitter4j.TwitterException;
-import twitter4j.conf.ConfigurationContext;
-import twitter4j.internal.logging.Logger;
-import twitter4j.internal.util.z_T4JInternalStringUtil;
+import static twitter4j.internal.http.RequestMethod.POST;
 
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
@@ -31,13 +28,21 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static twitter4j.internal.http.RequestMethod.POST;
+import javax.net.ssl.HttpsURLConnection;
+
+import twitter4j.TwitterException;
+import twitter4j.conf.ConfigurationContext;
+import twitter4j.internal.logging.Logger;
+import twitter4j.internal.util.z_T4JInternalStringUtil;
+import twitter4j.internal.util.z_T4JTime;
+import android.text.TextUtils;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -116,7 +121,7 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
                     con.setRequestMethod(req.getMethod().name());
                     if (req.getMethod() == POST) {
                         if (HttpParameter.containsFile(req.getParameters())) {
-                            String boundary = "----Twitter4J-upload" + System.currentTimeMillis();
+							String boundary = "----Twitter4J-upload" + z_T4JTime.getTwitterTimeMillis();
                             con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
                             boundary = "--" + boundary;
                             con.setDoOutput(true);
@@ -167,6 +172,13 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
                     }
                     res = new HttpResponseImpl(con, CONF);
                     responseCode = con.getResponseCode();
+
+					/// <LevelUp Studio>
+					String date = res.getResponseHeader("Date");
+					if (!TextUtils.isEmpty(date))
+						z_T4JTime.setTwitterTime(date);
+					/// </LevelUp Studio>
+
                     if (logger.isDebugEnabled()) {
                         logger.debug("Response: ");
                         Map<String, List<String>> responseHeaders = con.getHeaderFields();

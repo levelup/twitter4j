@@ -24,6 +24,7 @@ import twitter4j.internal.http.HttpParameter;
 import twitter4j.internal.http.HttpRequest;
 import twitter4j.internal.logging.Logger;
 import twitter4j.internal.util.z_T4JInternalStringUtil;
+import twitter4j.internal.util.z_T4JTime;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -268,13 +269,13 @@ public class OAuthAuthorization implements Authorization, java.io.Serializable, 
      * @see <a href="http://oauth.net/core/1.0a/#rfc.section.5.4.1">OAuth Core - 5.4.1.  Authorization Header</a>
      */
     /*package*/ String generateAuthorizationHeader(String method, String url, HttpParameter[] params, OAuthToken token) {
-        long timestamp = System.currentTimeMillis() / 1000;
+        long timestamp = z_T4JTime.getTwitterTimeMillis() / 1000;
         long nonce = timestamp + RAND.nextInt();
         return generateAuthorizationHeader(method, url, params, String.valueOf(nonce), String.valueOf(timestamp), token);
     }
 
     public List<HttpParameter> generateOAuthSignatureHttpParams(String method, String url) {
-        long timestamp = System.currentTimeMillis() / 1000;
+        long timestamp = z_T4JTime.getTwitterTimeMillis() / 1000;
         long nonce = timestamp + RAND.nextInt();
 
         List<HttpParameter> oauthHeaderParams = new ArrayList<HttpParameter>(5);
