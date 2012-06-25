@@ -552,6 +552,9 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                     logger.warn(e.getMessage());
                 }
             }
+            streamListeners = null;
+            lifeCycleListeners.clear();
+            http.setHttpResponseListener(null);
         }
 
         public synchronized void close() {
