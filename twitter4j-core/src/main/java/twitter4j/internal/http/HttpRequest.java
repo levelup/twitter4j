@@ -36,6 +36,8 @@ public final class HttpRequest implements java.io.Serializable {
 
     private final Authorization authorization;
 
+	private final String body;
+
     private Map<String, String> requestHeaders;
 
     private static final long serialVersionUID = -3463594029098858381L;
@@ -49,9 +51,10 @@ public final class HttpRequest implements java.io.Serializable {
      * @param parameters     parameters
      * @param authorization  Authentication implementation. Currently BasicAuthentication, OAuthAuthentication and NullAuthentication are supported.
      * @param requestHeaders
+	 * @param body body for POST requests
      */
     public HttpRequest(RequestMethod method, String url, HttpParameter[] parameters
-            , Authorization authorization, Map<String, String> requestHeaders) {
+			, Authorization authorization, Map<String, String> requestHeaders, String body) {
         this.method = method;
         if (method != RequestMethod.POST && parameters != null && parameters.length != 0) {
             this.url = url + "?" + HttpParameter.encodeParameters(parameters);
@@ -62,6 +65,10 @@ public final class HttpRequest implements java.io.Serializable {
         }
         this.authorization = authorization;
         this.requestHeaders = requestHeaders;
+		if (body==null)
+			this.body = ""; // safety
+		else
+			this.body = body;
     }
 
     public RequestMethod getMethod() {
@@ -82,6 +89,10 @@ public final class HttpRequest implements java.io.Serializable {
 
     public Map<String, String> getRequestHeaders() {
         return requestHeaders;
+	}
+
+	public String getBody() {
+		return body;
     }
 
     @Override

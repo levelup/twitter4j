@@ -82,28 +82,28 @@ public final class HttpClientWrapper implements java.io.Serializable {
 
     public HttpResponse get(String url, HttpParameter[] parameters
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(GET, url, parameters, authorization, this.requestHeaders));
+        return request(new HttpRequest(GET, url, parameters, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse get(String url, HttpParameter[] parameters) throws TwitterException {
-        return request(new HttpRequest(GET, url, parameters, null, this.requestHeaders));
+        return request(new HttpRequest(GET, url, parameters, null, this.requestHeaders, null));
     }
 
     public HttpResponse get(String url, Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(GET, url, null, authorization, this.requestHeaders));
+        return request(new HttpRequest(GET, url, null, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse get(String url) throws TwitterException {
-        return request(new HttpRequest(GET, url, null, null, this.requestHeaders));
+        return request(new HttpRequest(GET, url, null, null, this.requestHeaders, null));
     }
 
     public HttpResponse post(String url, HttpParameter[] parameters
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(POST, url, parameters, authorization, this.requestHeaders));
+        return request(new HttpRequest(POST, url, parameters, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse post(String url, HttpParameter[] parameters) throws TwitterException {
-        return request(new HttpRequest(POST, url, parameters, null, this.requestHeaders));
+        return request(new HttpRequest(POST, url, parameters, null, this.requestHeaders, null));
     }
 
     public HttpResponse post(String url, HttpParameter[] parameters, Map<String, String> requestHeaders) throws TwitterException {
@@ -111,68 +111,76 @@ public final class HttpClientWrapper implements java.io.Serializable {
         if (requestHeaders != null)
             headers.putAll(requestHeaders);
 
-        return request(new HttpRequest(POST, url, parameters, null, headers));
+        return request(new HttpRequest(POST, url, parameters, null, headers, null));
     }
 
     public HttpResponse post(String url, Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(POST, url, null, authorization, this.requestHeaders));
+        return request(new HttpRequest(POST, url, null, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse post(String url) throws TwitterException {
-        return request(new HttpRequest(POST, url, null, null, this.requestHeaders));
+        return request(new HttpRequest(POST, url, null, null, this.requestHeaders, null));
     }
 
+	public HttpResponse post(String url, Map<String, String> requestHeaders, String body) throws TwitterException {
+        Map<String, String> headers = new HashMap<String, String>(this.requestHeaders);
+        if (requestHeaders != null)
+            headers.putAll(requestHeaders);
+
+        return request(new HttpRequest(POST, url, null, null, headers, body));
+	}
+	
     public HttpResponse delete(String url, HttpParameter[] parameters
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(DELETE, url, parameters, authorization, this.requestHeaders));
+        return request(new HttpRequest(DELETE, url, parameters, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse delete(String url, HttpParameter[] parameters) throws TwitterException {
-        return request(new HttpRequest(DELETE, url, parameters, null, this.requestHeaders));
+        return request(new HttpRequest(DELETE, url, parameters, null, this.requestHeaders, null));
     }
 
     public HttpResponse delete(String url,
                                Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(DELETE, url, null, authorization, this.requestHeaders));
+        return request(new HttpRequest(DELETE, url, null, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse delete(String url) throws TwitterException {
-        return request(new HttpRequest(DELETE, url, null, null, this.requestHeaders));
+        return request(new HttpRequest(DELETE, url, null, null, this.requestHeaders, null));
     }
 
     public HttpResponse head(String url, HttpParameter[] parameters
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(HEAD, url, parameters, authorization, this.requestHeaders));
+        return request(new HttpRequest(HEAD, url, parameters, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse head(String url, HttpParameter[] parameters) throws TwitterException {
-        return request(new HttpRequest(HEAD, url, parameters, null, this.requestHeaders));
+        return request(new HttpRequest(HEAD, url, parameters, null, this.requestHeaders, null));
     }
 
     public HttpResponse head(String url
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(HEAD, url, null, authorization, this.requestHeaders));
+        return request(new HttpRequest(HEAD, url, null, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse head(String url) throws TwitterException {
-        return request(new HttpRequest(HEAD, url, null, null, this.requestHeaders));
+        return request(new HttpRequest(HEAD, url, null, null, this.requestHeaders, null));
     }
 
     public HttpResponse put(String url, HttpParameter[] parameters
             , Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(PUT, url, parameters, authorization, this.requestHeaders));
+        return request(new HttpRequest(PUT, url, parameters, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse put(String url, HttpParameter[] parameters) throws TwitterException {
-        return request(new HttpRequest(PUT, url, parameters, null, this.requestHeaders));
+        return request(new HttpRequest(PUT, url, parameters, null, this.requestHeaders, null));
     }
 
     public HttpResponse put(String url, Authorization authorization) throws TwitterException {
-        return request(new HttpRequest(PUT, url, null, authorization, this.requestHeaders));
+        return request(new HttpRequest(PUT, url, null, authorization, this.requestHeaders, null));
     }
 
     public HttpResponse put(String url) throws TwitterException {
-        return request(new HttpRequest(PUT, url, null, null, this.requestHeaders));
+        return request(new HttpRequest(PUT, url, null, null, this.requestHeaders, null));
     }
 
     @Override

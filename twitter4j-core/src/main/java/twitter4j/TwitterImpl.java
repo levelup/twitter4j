@@ -1774,7 +1774,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         }
     }
 
-    private HttpResponse post(String url, HttpParameter[] parameters) throws TwitterException {
+    public HttpResponse post(String url, HttpParameter[] parameters) throws TwitterException {
         if (!conf.isMBeanEnabled()) {
             return http.post(url, parameters, auth);
         } else {

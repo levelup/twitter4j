@@ -96,11 +96,11 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
     }
 
     public HttpResponse get(String url) throws TwitterException {
-        return request(new HttpRequest(RequestMethod.GET, url, null, null, null));
+		return request(new HttpRequest(RequestMethod.GET, url, null, null, null, null));
     }
 
     public HttpResponse post(String url, HttpParameter[] params) throws TwitterException {
-        return request(new HttpRequest(RequestMethod.POST, url, params, null, null));
+		return request(new HttpRequest(RequestMethod.POST, url, params, null, null, null));
     }
 
     public HttpResponse request(HttpRequest req) throws TwitterException {
@@ -159,6 +159,8 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
                             con.setRequestProperty("Content-Type",
                                     "application/x-www-form-urlencoded");
                             String postParam = HttpParameter.encodeParameters(req.getParameters());
+							if (postParam==null || postParam.trim().length()==0)
+								postParam = req.getBody();
                             logger.debug("Post Params: ", postParam);
                             byte[] bytes = postParam.getBytes("UTF-8");
                             con.setRequestProperty("Content-Length",

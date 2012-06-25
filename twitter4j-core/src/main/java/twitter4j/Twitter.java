@@ -17,6 +17,8 @@ package twitter4j;
 
 import twitter4j.api.*;
 import twitter4j.auth.OAuthSupport;
+import twitter4j.internal.http.HttpParameter;
+import twitter4j.internal.http.HttpResponse;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -47,4 +49,5 @@ public interface Twitter extends java.io.Serializable,
         LegalResources,
         NewTwitterMethods,
         HelpMethods {
+	public HttpResponse post(String url, HttpParameter[] parameters) throws TwitterException;
 }
