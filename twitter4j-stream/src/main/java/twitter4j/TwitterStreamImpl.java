@@ -406,7 +406,7 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
 
     abstract class TwitterStreamConsumer extends Thread {
         private StreamImplementation stream = null;
-        private final String NAME = "Twitter Stream consumer-" + (++count);
+        private final String NAME = "Twitter Stream-" + conf.getUser() + "-" + (++count); // LEVELUP STUDIO CHANGE
         private volatile boolean closed = false;
 
         TwitterStreamConsumer() {
@@ -421,11 +421,11 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                 try {
                     if (!closed && null == stream) {
                         // try establishing connection
-                        logger.info("Establishing connection.");
+                        logger.info("Establishing connection for "+conf.getUser());
                         setStatus("[Establishing connection]");
                         stream = getStream();
                         connected = true;
-                        logger.info("Connection established.");
+                        logger.info("Connection established for "+conf.getUser());
                         for (ConnectionLifeCycleListener listener : lifeCycleListeners) {
                             try {
                                 listener.onConnect();
@@ -435,13 +435,16 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                         }
                         // connection established successfully
                         timeToSleep = NO_WAIT;
-                        logger.info("Receiving status stream.");
+                        logger.info("Receiving status stream for "+conf.getUser());
                         setStatus("[Receiving stream]");
                         while (!closed) {
                             try {
                                 stream.next(streamListeners);
                             } catch (IllegalStateException ise) {
-                                logger.warn(ise.getMessage());
+                            	if (ise.getMessage().equals("Stream already closed."))
+                            		logger.debug(ise.getMessage());
+                            	else
+                            		logger.warn(ise.getMessage());
                                 break;
                             } catch (TwitterException e) {
                                 logger.info(e.getMessage());
@@ -502,14 +505,16 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                         // there was a problem establishing the connection, or the connection closed by peer
                         if (!closed) {
                             // wait for a moment not to overload Twitter API
-                            logger.info("Waiting for " + (timeToSleep) + " milliseconds");
+                            logger.info("Waiting for " + (timeToSleep) + " milliseconds for "+conf.getUser());
                             setStatus("[Waiting for " + (timeToSleep) + " milliseconds]");
                             try {
                                 Thread.sleep(timeToSleep);
                             } catch (InterruptedException ignore) {
                             }
+                            // LEVELUP STUDIO CHANGE IN
                             int maxTimeToSleep = (te.getStatusCode() > 200) ? HTTP_ERROR_WAIT_CAP : TCP_ERROR_WAIT_CAP;
                             if (timeToSleep*3 >= maxTimeToSleep) {
+                                logger.info("Force closing after trying for " + (timeToSleep) + " milliseconds for "+conf.getUser());
                                 setStatus("[Force closing after trying for " + (timeToSleep) + " milliseconds]");
                                 for (ConnectionLifeCycleListener listener : lifeCycleListeners) {
                                     try {
