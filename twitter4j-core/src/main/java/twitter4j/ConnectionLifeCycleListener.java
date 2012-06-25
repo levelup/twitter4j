@@ -35,4 +35,9 @@ public interface ConnectionLifeCycleListener {
      * called before thread gets cleaned up
      */
     void onCleanUp();
+
+    /**
+     * called when there are too many timeouts happening on a connection
+     */
+	void onTimeOuts();
 }

@@ -495,6 +495,10 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                                 }
                             }
                         }
+                        logger.debug(te.getMessage());
+                        for (StreamListener statusListener : streamListeners) {
+                            statusListener.onException(te);
+                        }
                         // there was a problem establishing the connection, or the connection closed by peer
                         if (!closed) {
                             // wait for a moment not to overload Twitter API
@@ -504,13 +508,22 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
                                 Thread.sleep(timeToSleep);
                             } catch (InterruptedException ignore) {
                             }
-                            timeToSleep = Math.min(timeToSleep * 2, (te.getStatusCode() > 200) ? HTTP_ERROR_WAIT_CAP : TCP_ERROR_WAIT_CAP);
+                            int maxTimeToSleep = (te.getStatusCode() > 200) ? HTTP_ERROR_WAIT_CAP : TCP_ERROR_WAIT_CAP;
+                            if (timeToSleep*3 >= maxTimeToSleep) {
+                                setStatus("[Force closing after trying for " + (timeToSleep) + " milliseconds]");
+                                for (ConnectionLifeCycleListener listener : lifeCycleListeners) {
+                                    try {
+                                        listener.onTimeOuts();
+                                    } catch (Exception e) {
+                                        logger.warn(e.getMessage());
+                                    }
+                                }
+                            	close();
+                            }
+                            timeToSleep = timeToSleep * 3;
+                            // LEVELUP STUDIO CHANGE OUT
                         }
                         stream = null;
-                        logger.debug(te.getMessage());
-                        for (StreamListener statusListener : streamListeners) {
-                            statusListener.onException(te);
-                        }
                         connected = false;
                     }
                 }
