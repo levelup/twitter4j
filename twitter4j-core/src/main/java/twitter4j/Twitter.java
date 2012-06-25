@@ -48,6 +48,7 @@ public interface Twitter extends java.io.Serializable,
         GeoMethods,
         LegalResources,
         NewTwitterMethods,
-        HelpMethods {
+        HelpMethods,
+        CookieListenerMethods {
 	public HttpResponse post(String url, HttpParameter[] parameters) throws TwitterException;
 }

@@ -21,6 +21,7 @@ import twitter4j.auth.Authorization;
 import twitter4j.conf.Configuration;
 import twitter4j.internal.http.HttpParameter;
 import twitter4j.internal.http.HttpResponse;
+import twitter4j.internal.http.HttpResponseEvent;
 import twitter4j.internal.org.json.JSONException;
 import twitter4j.internal.util.z_T4JInternalStringUtil;
 
@@ -34,6 +35,9 @@ import java.util.Date;
 import java.util.List;
 
 import static twitter4j.internal.http.HttpParameter.getParameterArray;
+
+import com.levelup.socialapi.AbstractCookieManager;
+import com.levelup.socialapi.TouitContext;
 
 /**
  * A java representation of the <a href="https://dev.twitter.com/docs/api">Twitter REST API</a><br>
@@ -1828,4 +1832,24 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
                 ", INCLUDE_RTS=" + INCLUDE_RTS +
                 '}';
     }
+
+	 /// <LevelUp Studio>
+	 protected CookieListener mCookieListener;
+
+	 @Override
+	 public void setCookieListener(CookieListener listener) {
+		 mCookieListener = listener;
+	 }
+
+	 @Override
+	 public void httpResponseReceived(HttpResponseEvent event) {
+		 if (mCookieListener!=null && event.getResponse()!=null) {
+			 AbstractCookieManager cookieMaster = TouitContext.getCookieManager();
+			 if (cookieMaster!=null) {
+				 mCookieListener.setNewCookies(event.getResponse().getResponseHeaderFields(), ".twitter.com");
+			 }
+		 }
+		 super.httpResponseReceived(event);
+	 }
+	 /// </LevelUp Studio>
 }
