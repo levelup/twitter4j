@@ -146,12 +146,12 @@ public class StatusMethodsTest extends TwitterTestBase {
         assertTrue(20 < statuses.size());
 
         List<User> users = unauthenticated.getRetweetedBy(47621163517624320L, new Paging(1, 100));
-        assertTrue(users.size() > 90);
+        assertTrue(users.size() > 50);
         users = unauthenticated.getRetweetedBy(47621163517624320L, new Paging(2, 100));
         assertTrue(users.size() > 10);
 
         IDs ids = twitter1.getRetweetedByIDs(47621163517624320L, new Paging(1, 100));
-        assertTrue(ids.getIDs().length > 90);
+        assertTrue(ids.getIDs().length > 50);
         ids = twitter1.getRetweetedByIDs(47621163517624320L, new Paging(2, 100));
         assertTrue(ids.getIDs().length > 10);
     }
@@ -205,6 +205,7 @@ public class StatusMethodsTest extends TwitterTestBase {
         assertEquals("http://t.co/qbJx26r", media.getURL().toString());
         assertEquals(34, media.getStart());
         assertEquals(53, media.getEnd());
+        assertEquals("photo", media.getType());
         Map<Integer, MediaEntity.Size> sizes = media.getSizes();
         assertEquals(4, sizes.size());
         MediaEntity.Size large = sizes.get(MediaEntity.Size.LARGE);
